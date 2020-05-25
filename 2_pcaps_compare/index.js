@@ -15,10 +15,12 @@ if (isWin) {
 }
 
 if (isLinux || isDarwin) {
+    console.log('loading pcap')
+
     var pcap = require('pcap');
     
     var pcap_packet, pcap_decoded;
-    pcap_session = pcap.createSession("wlan0");
+    pcap_session = pcap.createSession("wlan0", "tcp or udp or icmp");
     pcap_session.on('packet', function (raw_packet) {
         pcap_packet = raw_packet;
         // shows: PacketWithHeader {buf: Buffer(65535), header: Buffer(16), link_type: "LINKTYPE_ETHERNET"}
@@ -27,19 +29,23 @@ if (isLinux || isDarwin) {
         
         console.log("\nPACKET (pcap):");
         console.log(pcap_packet);
-        console.log("PACKET DECODED:");
+        console.log("PACKET DECODED (pcap):");
         console.log(pcap_decoded);
     });
 }
 
-if (isWin || isLinx || isOSX) {
+// if (false) {
+if (isWin || isLinux || isOSX) {
+    console.log('loading cap')
     var cap = require('cap');
+    var decoders = require('cap').decoders;
+    var PROTOCOL = decoders.PROTOCOL;
     var cap_session = new cap.Cap();
 
     var cap_packet, cap_decoded;
     // var filter = 'tcp and dst port 80';
     var buffer = Buffer.alloc(65535);
-    var linkType = cap_session.open("wlan0", "", 10 * 1024 * 1024, buffer);
+    var linkType = cap_session.open("wlan0", "tcp or udp or icmp", 10 * 1024 * 1024, buffer);
     cap_session.on('packet', function(nbytes, trunc) {
         cap_packet = buffer.slice(0, nbytes);
         // shows: Buffer(60) [255, 255, 255, …]
@@ -48,16 +54,16 @@ if (isWin || isLinx || isOSX) {
             cap_decoded = decoders.IPV4(cap_packet, ret.offset);
         cap_session.close();
 
-        console.log("\nPACKET (pcap):");
+        console.log("\nPACKET (cap):");
         console.log(cap_packet);
-        console.log("PACKET DECODED:");
+        console.log("PACKET DECODED (cap):");
         console.log(cap_decoded);
     });
 }
 
 
     
-console.log('Press e key to exit');
+// console.log('Press e key to exit');
 // var stdin = process.openStdin();
 // stdin.resume();
 // stdin.setEncoding('utf8');
@@ -67,5 +73,4 @@ console.log('Press e key to exit');
 // });
 // process.stdin.on('data', process.exit.bind(process, 0));
 
-while (true) { continue; }
 console.log('done')
