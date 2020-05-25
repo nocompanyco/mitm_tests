@@ -53,10 +53,12 @@ var do_cap = function () {
     return new Promise(function (resolve) {
     console.log('\n\nLOAD cap\n\n');
 
-    console.log('cap CANT LOAD FILE. SKIPPING\nsee pcap_lookupnet https://github.com/mscdex/cap/blob/master/src/binding.cc#L314'); return resolve(true)
+    console.log('cap CANT LOAD FILE. SKIPPING\nsee pcap_lookupnet shttps://github.com/mscdex/cap/blob/master/src/binding.cc#L314'); return resolve(true)
     
     if (isLinux || isOSX || isWin) {
         var c = require('cap');
+        var decoders = require('cap').decoders;
+        var PROTOCOL = decoders.PROTOCOL;
         var cap_session = new c.Cap();
         var buffer = Buffer.alloc(65535);
         var linkType = cap_session.open(test_file, "", 10 * 1024 * 1024, buffer);
@@ -87,5 +89,5 @@ var do_nodecapture = function () {
 };
 
 do_pcap()
-  .then(do_cap)
+  .then(do_cap())
   .then(do_nodecapture);
