@@ -1,0 +1,21 @@
+directories:
+  output: dist
+  buildResources: build
+appId: org.counterpart.mitm
+productName: mitm
+artifactName: '${productName}-${version}-${os}-${arch}.${ext}'
+mac:
+  category: your.app.category.type
+win:
+  target:
+    - nsis
+    - zip
+nsis:
+  allowElevation: true
+  oneClick: false
+linux:
+  target:
+    - deb
+    - apk
+    - tar.gz
+electronVersion: 9.0.0
