@@ -14,13 +14,14 @@
     "productName": "mitm",
     "artifactName": "${productName}-${version}-${os}-${arch}.${ext}",
     "mac": {
-      "category": "your.app.category.type"
+      "category": "your.app.category.type",
+      "target": ["zip"],
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false,
+      "type": "development"
     },
     "win": {
-      "target": [
-        "nsis",
-        "zip"
-      ]
+      "target": ["nsis", "zip"]
     },
     "nsis": {
       "allowElevation": true,
@@ -28,7 +29,7 @@
       "perMachine": true
     },
     "linux": {
-      "target": ["deb","apk","tar.gz"]
+      "target": ["deb", "apk", "tar.gz"]
     }
   },
   "scripts": {
