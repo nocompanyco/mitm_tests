@@ -1,0 +1,53 @@
+loading pcap
+loading cap
+done
+
+PACKET (cap):
+<Buffer 3c a9 f4 21 00 7c 08 96 d7 96 98 99 08 00 45 00 02 53 a8 68 40 00 39 06 84 69 94 fb 0b 15 c0 a8 b2 1a 01 bb ba 16 45 1d 07 2f 71 1d 3a 0a 80 18 05 ac ... 559 more bytes>
+PACKET DECODED (cap):
+{
+  info: {
+    hdrlen: 5,
+    dscp: 0,
+    ecn: 0,
+    totallen: 595,
+    id: 43112,
+    flags: 2,
+    fragoffset: 0,
+    ttl: 57,
+    protocol: 6,
+    hdrchecksum: 33897,
+    srcaddr: '148.251.11.21',
+    dstaddr: '192.168.178.26',
+    options: undefined
+  },
+  hdrlen: 20,
+  offset: 34
+}
+node_pcap: EthernetFrame() - Don't know how to decode ethertype 35041
+
+PACKET (pcap):
+PacketWithHeader {
+  buf: <Buffer ff ff ff ff ff ff 08 96 d7 96 98 99 88 e1 00 00 a0 00 b0 52 50 9d 9c 7f 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ... 65485 more bytes>,
+  header: <Buffer 2d 7f cb 5e 4b 7b 08 00 3c 00 00 00 3c 00 00 00>,
+  link_type: 'LINKTYPE_ETHERNET'
+}
+PACKET DECODED (pcap):
+PcapPacket {
+  link_type: 'LINKTYPE_ETHERNET',
+  pcap_header: PcapHeader {
+    tv_sec: 1590394669,
+    tv_usec: 555851,
+    caplen: 60,
+    len: 60
+  },
+  payload: EthernetPacket {
+    emitter: undefined,
+    dhost: EthernetAddr { addr: [Array] },
+    shost: EthernetAddr { addr: [Array] },
+    ethertype: 35041,
+    vlan: null,
+    payload: null
+  },
+  emitter: undefined
+}

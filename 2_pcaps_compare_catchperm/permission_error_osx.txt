@@ -1,0 +1,9 @@
+oading pcap
+/Users/user/projects5/counterpart/mitm_tests/2_pcaps_compare/node_modules/pcap/pcap.js:60
+        this.link_type = this.session.open_live(this.device_name, this.filter, this.buffer_size, this.snap_length, this.outfile, packet_ready, this.is_monitor, this.buffer_timeout, exports.warningHandler, this.promiscuous);
+                                      ^
+
+Error: (cannot open BPF device) /dev/bpf0: Permission denied
+    at new PcapSession (/Users/user/projects5/counterpart/mitm_tests/2_pcaps_compare/node_modules/pcap/pcap.js:60:39)
+    at Object.exports.createSession (/Users/user/projects5/counterpart/mitm_tests/2_pcaps_compare/node_modules/pcap/pcap.js:131:12)
+    at Object.<anonymous> (/Users/user/projects5/counterpart/mitm_tests/2_pcaps_compare/index.js:25:25)
