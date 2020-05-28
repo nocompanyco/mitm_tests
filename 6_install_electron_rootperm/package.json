@@ -44,13 +44,15 @@
     "dist:mac": "electron-builder --mac",
     "disk:linux": "electron-builder --linux",
     "start_node": "node .",
-    "start": "electron ."
+    "start": "electron .",
+    "start_wrapped": "node wrap.js"
   },
   "postinstall": "electron-builder install-app-deps",
   "nodeGypRebuild": true,
   "dependencies": {
     "cap": "^0.2.1",
-    "pcap": "^3.1.0"
+    "pcap": "^3.1.0",
+    "sudo-prompt": "^9.2.1"
   },
   "devDependencies": {
     "electron": "^9.0.0",

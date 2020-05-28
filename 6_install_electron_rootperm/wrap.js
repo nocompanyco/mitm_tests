@@ -32,7 +32,6 @@ if (isWin || isLinux || isOSX) {
             getRoot = 1
         }
     }
-    console.log("chekc")
 }
 
 var cp = require('child_process');
@@ -55,7 +54,7 @@ else {
     //     if (stdout) console.log('stdout: '+stdout);
     //     if (stderr) console.error('stderr: '+stderr);
     // });
-    cp.exec('node ./index.js > log')
+    cp.exec('./node_modules/.bin/electron ./index.js 2>&1 log')
 }
 
 var logproc = cp.spawn('tail',['-f','log'])
