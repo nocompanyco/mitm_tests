@@ -8,19 +8,21 @@
 var isWin = (process.platform === 'win32')
 var isLinux = (process.platform === 'linux')
 var isOSX = (process.platform === 'darwin')
-
+if (isWin) var device = "wlan0"
+if (isLinux) var device = "wlan0"
+if (isOSX) var device = "en1"
 
 if (isWin) {
     var capture = require('node-capture');
 }
 
-if (isLinux || isDarwin) {
+if (isLinux || isOSX) {
     console.log('loading pcap')
 
     var pcap = require('pcap');
     
     var pcap_packet, pcap_decoded;
-    pcap_session = pcap.createSession("wlan0", "tcp or udp or icmp");
+    pcap_session = pcap.createSession(device, "tcp or udp or icmp");
     pcap_session.on('packet', function (raw_packet) {
         pcap_packet = raw_packet;
         // shows: PacketWithHeader {buf: Buffer(65535), header: Buffer(16), link_type: "LINKTYPE_ETHERNET"}
@@ -45,7 +47,7 @@ if (isWin || isLinux || isOSX) {
     var cap_packet, cap_decoded;
     // var filter = 'tcp and dst port 80';
     var buffer = Buffer.alloc(65535);
-    var linkType = cap_session.open("wlan0", "tcp or udp or icmp", 10 * 1024 * 1024, buffer);
+    var linkType = cap_session.open(device, "tcp or udp or icmp", 10 * 1024 * 1024, buffer);
     cap_session.on('packet', function(nbytes, trunc) {
         cap_packet = buffer.slice(0, nbytes);
         // shows: Buffer(60) [255, 255, 255, …]
