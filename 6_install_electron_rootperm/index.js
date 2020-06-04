@@ -1,3 +1,4 @@
+// statyus: 
 const { app, BrowserWindow } = require('electron')
 const fs = require('fs')
 function createWindow () {
