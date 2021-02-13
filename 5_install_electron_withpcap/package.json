@@ -42,7 +42,7 @@
     "dist:all": "dist:windows dist:mac dist:linux",
     "dist:windows": "WINEPREFIX=~/.win32 WINEARCH=win32 electron-builder --win --x64 --i32",
     "dist:mac": "electron-builder --mac",
-    "disk:linux": "electron-builder --linux",
+    "dist:linux": "electron-builder --linux",
     "start_node": "node .",
     "start": "electron ."
   },

@@ -16,9 +16,18 @@ var isOSX   = (process.platform === 'darwin')
 
 
 // Status: works:
+// tested on Linux
+// pcap offline session will not work on Windows due to inability to compile node_pcap on windows
 var do_pcaptocap = function () {
   return new Promise(function (resolve) {
     console.log('\n\nLOAD pcap\n\n');
+    if (isWin) {
+      console.error('replay pcap file will not work on windows')
+      console.error('- pcap cannot compile on windows')
+      console.error('- cap does not support loading file or offline replay')
+      return resolve(true);
+    }
+
     var pcap = require('pcap');
 
     var cap_decoders = require('cap').decoders;
@@ -54,6 +63,7 @@ var do_pcaptocap = function () {
 //
 // STATUS:
 // need to provide filter for it to work
+// tested on linux
 
 var do_captopcap = function () {
   return new Promise(function (resolve) {
@@ -62,7 +72,8 @@ var do_captopcap = function () {
     var cap_session = new cap.Cap();
     var cap_decoders = require('cap').decoders;
     var PROTOCOL = cap_decoders.PROTOCOL;
-    var pcap = require('pcap');
+    // var pcap = require('pcap');
+    var pcap_decode = require('pcap/decode').decode; // works on winodws, and linux
     var filter = "tcp or udp or icmp";
 
     var buffer = Buffer.alloc(65535);
@@ -89,7 +100,7 @@ var do_captopcap = function () {
         // var cap_decoded = cap_decoders.Ethernet(buffer);
         // if (cap_decoded.info.type === PROTOCOL.ETHERNET.IPV4)
         //     cap_decoded = cap_decoders.IPV4(cap_packet, cap_decoded.offset);
-        pcap_decoded = pcap.decode.packet(PacketWithHeader);
+        pcap_decoded = pcap_decode.packet(PacketWithHeader);
 
         cap_session.close();
 
